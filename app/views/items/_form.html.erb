@@ -1,0 +1,50 @@
+<%= form_for @item, :html => { :class => "form-horizontal" } do |f| %>
+    <legend> Auction an item </legend>
+    <div class="control-group">
+        <label class="control-label" for="item_name">Name</label>
+        <div class="controls">
+            <%= f.text_field :name%>
+        </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="item_name">Category</label>
+      <div class="controls">
+        <% grouped_options = {"Book"=>["Cookbook","Fairy tale","Novel"],"Cloth"=>["Baby", "Man", "Woman"],
+                              "Electronic"=>["Laptop", "Mobile phone", "Monitor"],"Home"=>["Kitchen", "Sofa",
+                                                                                           "Tool kit"],
+                              "Shoe"=>["Child", "Sport", "Formal"]} %>
+        <%= f.select :category, grouped_options %>
+      </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="item_name">Description</label>
+        <div class="controls">
+            <%= f.text_area :description, :rows=>"5" %>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="item_name">Opening Bid</label>
+        <div class="controls">
+            <%= f.text_field :opening_bid %>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="item_name">Image</label>
+        <div class="controls">
+          <%= f.filepicker_field :picture, :button_class=>"btn", :multiple=> true %>
+        </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="item_name">Closing time</label>
+      <div class="controls">
+        <%= text_field_tag :closing_day %>
+        <%= text_field_tag :closing_time %>
+        <span class="help-block">All times are shown in UTC.</span>
+      </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <%= f.submit :class=>"btn btn-primary" %>
+        </div>
+    </div>
+<% end %>

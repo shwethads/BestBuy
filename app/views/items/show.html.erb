@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="well">
+        <ul class="nav nav-list">
+          <li><%=image_tag('thumb.jpeg', :alt => @item.name) %></li>
+          <li>Name: Harshad Mande</li>
+          <li>Addr: Pitt, PA</li>
+          <li>Tel.: 412-378-5298</li>
+        </ul>
+      </div>
+    </div>
+    <div class="span9">
+      <%= render 'shared/search_box' %>
+      <div class="well">
+        <div class="row-fluid">
+          <div class="span3"><%= filepicker_image_tag( @item.picture, {w: 160, h: 160, fit: 'clip'}, true) %></div>
+          <div class="span6">
+            Name: <%= @item.name %>
+            <br>
+            Owner: <%= @item.user.email %>
+            <br>
+            Description: <%= @item.description %>
+            <br>
+            Opening bid: <%= @item.opening_bid %>
+            <br>
+            Highest bid: <%= @item.highest_bid %>
+            <br>
+            <%= content_tag "div", id: "bid-closing-in" do %>
+            <% end %>
+            <br>
+          </div>
+        </div>
+        <% unless @item.closing_date.past? %>
+          <div>
+            <%= render "items/form_bid" %>
+          </div>
+        <% end %>
+        <table id="bid-history" class="table table-bordered">
+          <tr>
+            <th>
+              User
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              Time
+            </th>
+          </tr>
+        <% @item.bids.order("created_at DESC").each do |bid| %>
+          <tr>
+            <td>
+              <%= bid.user.email %>
+            </td>
+            <td>
+              <%= bid.amount %>
+            </td>
+            <td>
+              <%= bid.created_at %>
+            </td>
+          </tr>
+        <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!--/.fluid-container-->

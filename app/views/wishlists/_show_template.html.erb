@@ -1,0 +1,20 @@
+<div class="tab-pane" id="wishlist_id<%=wishlist.id%>">
+<%= wishlist.name  %> |
+<%= link_to 'Edit', edit_wishlist_path(wishlist) %> |
+<%= link_to 'Destroy', wishlist, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<table>
+  <% wishlist.line_items.each do |line_item| %>
+      <tr>
+        <td><%= link_to(line_item.item.name, item_path(line_item.item.id)) %></td>
+        <td class="item_price"><%= number_to_currency(line_item.item.highest_bid) %></td>
+        <td><%= link_to("Remove", line_item_path(line_item.id), :method =>:delete, :data => {:confirm=>'Are you sure?'} )%></td>
+      </tr>
+  <% end %>
+
+  <tr class="total_line">
+    <td colspan="2">Total</td>
+    <td class="total_cell"><%= number_to_currency(wishlist.total_price) %></td>
+  </tr>
+</table>
+<%= button_to 'Empty wishlist', empty_wishlist_path(wishlist.id), class: 'btn btn-small' ,confirm: 'Are you sure?' %>
+</div>

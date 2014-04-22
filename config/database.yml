@@ -1,0 +1,28 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  database: db/<%= Rails.env %>.sqlite3
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  database: BestBay_<%= Rails.env %>
+  min_messages: ERROR
+
+defaults: &defaults
+  pool: 5
+  timeout: 5000
+  host: localhost
+  <<: *<%= ENV['DB'] || "sqlite" %>
+
+development:
+  <<: *defaults
+
+test: &test
+  <<: *defaults
+
+production:
+  <<: *defaults
+  # TODO: Add erb-echo of credentials
+
+cucumber:
+  <<: *test

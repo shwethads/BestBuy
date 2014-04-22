@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div id="top_navigation" class="span3 well">
+      <%= render_navigation :expand_all => true %>
+    </div>
+    <div class="span9">
+      <%= render 'shared/search_box' %>
+      <ul class="breadcrumb">
+        <li class="active">All Fashion items</li>
+      </ul>
+      <div class="well">
+      <table id='items' class="table">
+        <tr>
+          <th>Name</th>
+          <th>Picture</th>
+          <th>Opening Bid</th>
+          <th>Highest Bid</th>
+          <th>View Details</th>
+          <th>Add to list</th>
+        </tr>
+        <tbody id='itemsbody'>
+        <% @items.each do |item| %>
+            <tr>
+              <td><%= item.name %></td>
+              <td><%= filepicker_image_tag( item.picture, {w: 160, h: 160, fit: 'clip'}, false) %></td>
+              <td><%= item.opening_bid %></td>
+              <td><%= item.highest_bid %></td>
+              <td><%= link_to 'Show', item %></td>
+              <td>
+              <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  Add to
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+
+                  <% current_user.wishlists.each do |wishlist|%>
+                      <li>
+                        <%= link_to wishlist.name, {:controller=>'line_items', :action=>'create' ,:item_id => item.id, :wishlist_id => wishlist.id}, :method => :post %>
+                      </li>
+                  <% end %>
+
+                </ul>
+              </div>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>

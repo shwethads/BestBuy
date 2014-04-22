@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BestBay</title>
+  <%= include_gon %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.javascripts" type="text/javascript"></script>
+  <![endif]-->
+  <style>
+      body {
+          padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+  </style>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<%= render "shared/nav_bar" %>
+
+<%= render "shared/flash_messages" %>
+<div class="container">
+  <%= yield %>
+  <%= render 'layouts/footer' %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= filepicker_js_include_tag %>
+</div>
+</body>
+</html>
